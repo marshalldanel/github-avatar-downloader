@@ -1,13 +1,31 @@
-# GitHub Avatar Downloader
+# Github Avatar Downloader
+
 
 ## Problem Statement
 
 Given a GitHub repository name and owner, download all the contributors' profile images and save them to a subdirectory, `avatars/`.
 
-## Expected Usage
+## Usage
 
-This program should be executed from the command line, in the following manner:
+OS X & Linux:
 
-`node download_avatars.js jquery jquery`
+```sh
+node download_avatars.js jquery jquery
+```
 
-... (whatever else you'd like to include)
+## Development setup
+
+- Uses 'request' library to make the HTTP requests
+
+## Release History
+
+* 0.1.0
+    * The first proper release
+    * LHL Project # 1
+
+
+## Meta
+
+Marshall -
+
+[https://github.com/marshalldanel](https://github.com/marshalldanel/)
