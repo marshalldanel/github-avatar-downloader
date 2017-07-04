@@ -1,7 +1,7 @@
 var request = require('request');
 var fs = require('fs');
 
-function getReqOptions (path) {
+function getRequestOptions (path) {
   return {
     url: 'https://api.github.com' + path,
     headers: {
@@ -14,7 +14,7 @@ function getReqOptions (path) {
 }
 
 function getRepoContributors(path, callback) {
-  request(getReqOptions(path), function (error, response, body) {
+  request(getRequestOptions(path), function (error, response, body) {
     try {
       const data = JSON.parse(body);
       callback(data);
@@ -41,6 +41,6 @@ function downloadImageByURL(url, filepath) {
 
 getRepoContributors(`/repos/${process.argv[2]}/${process.argv[3]}/contributors`, (data) => {
   data.forEach((contributor) => {
-    downloadImageByURL(contributor.avatar_url, 'avatars/login.jpeg');
+    downloadImageByURL(contributor.avatar_url, 'avatars/' + contributor.login + '.jpeg');
   });
 });
