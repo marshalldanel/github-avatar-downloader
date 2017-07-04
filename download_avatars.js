@@ -12,7 +12,8 @@ function getReqOptions (path) {
   };
 }
 
-function gitHubApiResponse(path, callback) {
+function getRepoContributors(path, callback) {
+
   request(getReqOptions(path), function (error, response, body) {
     try {
       const data = JSON.parse(body);
@@ -23,8 +24,8 @@ function gitHubApiResponse(path, callback) {
   });
 }
 
-gitHubApiResponse(`/repos/${process.argv[2]}/${process.argv[3]}/contributors`, (data) => {
+getRepoContributors(`/repos/${process.argv[2]}/${process.argv[3]}/contributors`, (data) => {
   data.forEach((contributor) => {
-    console.log(contributor.login);
+    console.log(contributor.avatar_url);
   });
 });
