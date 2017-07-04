@@ -8,7 +8,7 @@ function getReqOptions (path) {
       'User-Agent': 'pinkElephant'
     },
     qs: {
-      access_token: process.env.GITHUB_ACCESS_TOKEN
+      accessToken: process.env.GITHUB_ACCESS_TOKEN
     }
   };
 }
