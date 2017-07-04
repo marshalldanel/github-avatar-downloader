@@ -1,6 +1,7 @@
 var request = require('request');
 var fs = require('fs');
 
+// Get access to GitHub api
 function getRequestOptions (path) {
   return {
     url: 'https://api.github.com' + path,
@@ -13,6 +14,7 @@ function getRequestOptions (path) {
   };
 }
 
+// First GET request to pull avartar urls from specified user and repo
 function getRepoContributors(path, callback) {
   request(getRequestOptions(path), function (error, response, body) {
     try {
@@ -24,6 +26,7 @@ function getRepoContributors(path, callback) {
   });
 }
 
+// Second GET request to download all files and write to /avatars with unique filepaths
 function downloadImageByURL(url, filepath) {
   request.get(url)
     .on('error', function (err) {
@@ -39,6 +42,7 @@ function downloadImageByURL(url, filepath) {
     });
 }
 
+// Function call with 2 command line arguements and callback function
 getRepoContributors(`/repos/${process.argv[2]}/${process.argv[3]}/contributors`, (data) => {
   data.forEach((contributor) => {
     downloadImageByURL(contributor.avatar_url, 'avatars/' + contributor.login + '.jpeg');
