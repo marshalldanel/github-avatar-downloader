@@ -1,4 +1,5 @@
 var request = require('request');
+var fs = require('fs');
 
 function getReqOptions (path) {
   return {
@@ -13,7 +14,6 @@ function getReqOptions (path) {
 }
 
 function getRepoContributors(path, callback) {
-
   request(getReqOptions(path), function (error, response, body) {
     try {
       const data = JSON.parse(body);
@@ -24,8 +24,23 @@ function getRepoContributors(path, callback) {
   });
 }
 
+function downloadImageByURL(url, filepath) {
+  request.get(url)
+    .on('error', function (err) {
+      console.log('Failed to download');
+      throw err;
+    })
+    .on('response', function (response) {
+      console.log('Download complete');
+    })
+    .pipe(fs.createWriteStream(filepath))
+    .end('response', function (response) {
+      console.log('Downloading images...');
+    });
+}
+
 getRepoContributors(`/repos/${process.argv[2]}/${process.argv[3]}/contributors`, (data) => {
   data.forEach((contributor) => {
-    console.log(contributor.avatar_url);
+    downloadImageByURL(contributor.avatar_url, 'avatars/login.jpeg');
   });
 });
